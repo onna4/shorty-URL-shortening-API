@@ -146,8 +146,8 @@ form input:focus {
 }
 .fieldError {
   position: absolute;
-  bottom: -47%;
-  left: 18.5%;
+  bottom: -42%;
+  left: 14.5%;
   color: var(--Red);
   font-size: 14px;
 }
@@ -155,12 +155,12 @@ form input:focus {
   width:85%;
   border-radius: 15px;
 }
-.formResult .btn:nth-of-type(2) {
-  background: var(--Dark-Violet);
+.formResult .flexCont .copied {
+  background-color : var(--Dark-Violet);
 }
 .formResult {
   background: white;
-  margin-bottom: 10%;
+  margin-bottom: 8%;
   margin-top: -1em;
 }
 .formResult p {
@@ -168,6 +168,8 @@ form input:focus {
 }
 .resultURL {
   color: var(--Dark-Violet);
+  text-overflow: ellipsis;
+  max-width: 40%;
 }
 .shortURL {
   color: var(--Cyan);
@@ -268,6 +270,14 @@ footer li {
   .flexHeader {
     padding: 0 5em;
   }
+  .flexCont {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+  }
+  .flexCont .btn, .flexCont .shortURL {
+    margin-right: 1em;
+  }
   .navDesk, .Navbuttons {
     gap: 2em;
   }
@@ -330,6 +340,7 @@ footer li {
   }
   .formResult {
     height: 5rem;
+    margin-bottom: 2.5em;
   }
   .formResult .btn {
     width: 7rem;

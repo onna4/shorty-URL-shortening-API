@@ -1,24 +1,24 @@
 import React from 'react'
-import { useRef } from 'react'
 
 export default function FormResult(props) {
 
-  const shrtURL = useRef()
+  const urlDataArray = props.dataArray.map(Data => (
+    <article key="Data.id" className='formResult'>
+      <p className='resultURL' >{Data.originalLink} </p>
+      <hr />
+      <div className='flexCont'>
+        <p className='shortURL'>{Data.fullShortLink}</p>
+        {Data.isCopied ?
+          <button className='btn copied' >Copied!</button> :
+          <button className='btn' onClick={(e) => props.copyText(e, Data)} >Copy</button>}
+        <button className='btn' onClick={(e) => props.deleteurl(e, Data)} >Delete</button>
+      </div>
+    </article>
+    ))
 
-  function copyText () {
-    navigator.clipboard.writeText(shrtURL.current.innerHTML)
-    console.log(shrtURL.current.innerHTML)
-  }
   return (
     <>
-        <article className='formResult'>
-            <p className='resultURL' >{props.formData.result.original_link}</p>
-            <hr />
-            <p className='shortURL' ref={shrtURL} >{props.formData.result.full_short_link}</p>
-            {shrtURL ?
-            <button className='btn' >Copied!</button> :
-            <button className='btn' onClick={copyText} >Copy</button> }
-        </article>
-      </>
+      {urlDataArray}
+    </>
   )
 }
