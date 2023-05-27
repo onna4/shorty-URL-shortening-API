@@ -10,14 +10,21 @@ const ErrorMessage = () => {
  };
 
 export default function Form() {
-  const [shortenLink, setShortenLink] = useState({value:"", isTouched:false})
+  const [shortenLink, setShortenLink] = useState({
+    value: "",
+    isTouched: false
+  })
   const [formData, setFormData] = useState({})
   const [dataArray, setDataArray] = useState(
-    () => JSON.parse(localStorage.getItem("linkData")) || [])
+      JSON.parse(localStorage.getItem("linkData")) ||
+[])
   const APIURL = "https://api.shrtco.de/v2/shorten?url="
 
+
   function handleChange (e) {
-    setShortenLink({...shortenLink, value: e.target.value})
+    setShortenLink({
+      ...shortenLink,
+      value: e.target.value})
   }
 
   useEffect(() => {
@@ -25,38 +32,41 @@ export default function Form() {
 
   }, [dataArray])
 
+  function newURLResult () {
+    const newURL = {
+      id: nanoid(),
+      isCopied: false,
+      originalLink: formData.result.original_link,
+      fullShortLink: formData.result.full_short_link
+  }
+  setDataArray(prevDataArray => [...prevDataArray, newURL])
+  }
+
+
     function handleSubmit(event) {
       event.preventDefault()
       handleclick()
       setShortenLink({value: "", isTouched: false})
-      newURLResult()
     }
 
-    function newURLResult () {
-      const newURL = {
-        id: nanoid(),
-        isCopied: false,
-        originalLink: formData.result.original_link,
-        fullShortLink: formData.result.full_short_link
-    }
-    setDataArray(prevDataArray => [...prevDataArray, newURL])
-    }
-
-  // const showShortenedLink = useEffect(()=> {
+  // const handleclick = useEffect(()=> {
   //   fetch(`${APIURL}${shortenLink.value}`)
   //     .then(res => res.json())
-  //     .then(data => setFormData(data)) //use useState to save data
-  //     .catch((error) => console.log(error)
+  //     .then(data => setFormData(data))
+  //       formData.ok ? newURLResult() :
+  //       loggingError()
+  //     .catch((error) => loggingError()
   //  )
-  // },[linkState])
+  // },[formData])
 
   const handleclick = async () => {
     try {
         const data = await (await fetch(`${APIURL}${shortenLink.value}`)).json()
-        setFormData(data)
+        const dataset = setFormData(data)
+        formData.ok? newURLResult():
+        loggingError()
     } catch (err) {
-        // formData.ok? "" :
-        console.log(err.message)
+        loggingError()
     }
 }
 
@@ -64,7 +74,7 @@ export default function Form() {
     let error = ""
     switch (error) {
       case 1:
-        error = "No URL specified ('url' parameter is empty)"
+        error = "Please add a link"
         break
       case 2:
         error = "Invalid URL submitted"
@@ -93,6 +103,7 @@ export default function Form() {
       case 10:
         error = "Trying to shorten a disallowed Link. More information on disallowed links"
     }
+    console.log(error)
   }
 
   function copyText (e, Data) {
