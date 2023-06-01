@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function FormResult(props) {
 
+
   const urlDataArray = props.dataArray.map(Data => (
     <article key={Data.id} className='formResult'>
       <p className='resultURL' >{Data.originalLink} </p>
@@ -15,6 +16,7 @@ export default function FormResult(props) {
       </div>
     </article>
     ))
+
 
   return (
     <>
