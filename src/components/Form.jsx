@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react'
 import FormResult from './FormResult';
 import { nanoid } from 'nanoid'
 
-const ErrorMessage = () => {
+const ErrorMessage = (props) => {
+
   return (
-    <p className="fieldError">Please add a link</p>
+    <p className="fieldError">{props.errorData}</p>
   );
  };
 
@@ -19,6 +20,7 @@ export default function Form() {
     JSON.parse(localStorage.getItem("linkData")) ||
     [])
   const [isClicked, setIsClicked] = useState(false)
+  const [error, setError] = useState("")
   const APIURL = "https://api.shrtco.de/v2/shorten?url="
 
   function handleChange (e) {
@@ -33,7 +35,6 @@ function newURLResult () {
     originalLink: formData.result.original_link,
     fullShortLink: formData.result.full_short_link
 }
-console.log("updated")
   setDataArray(prevDataArray => [...prevDataArray, newURL]) }
 
   useEffect(() => {
@@ -45,22 +46,36 @@ console.log("updated")
       event.preventDefault()
       setShortenLink({value: "", isTouched: false})
     }
-  console.log(formData)
-  console.log(dataArray)
 
   useEffect(() => {
     try {
       fetch(`${APIURL}${shortenLink.value}`)
         .then(res => res.json())
-        .then(data => setFormData(data))
+        .then(data => {setFormData(data)
+          data.ok?
+        newURLResult() : loggingError()})
     }
-    catch {
-      (error) => console.error(error)
+    catch (error) {
+        console.log(error)
     }
   }, [isClicked])
 
   function handleClick() {
     setIsClicked(prevIsClicked => !prevIsClicked)
+  }
+
+  function loggingError(formData) {
+    switch (formData.error_code) {
+      case 1:
+        setError("Please add a link")
+        break;
+      case 2:
+        setError("Invalid URL submitted")
+        break;
+      case 3:
+        setError("Rate limit reached. Wait a second and try again")
+        break;
+    }
   }
 
   // const handleClick = async () => {
@@ -108,7 +123,8 @@ console.log("updated")
               setShortenLink({ ...shortenLink, isTouched: true });
             }}
             onChange={handleChange} />
-          {shortenLink.isTouched && !shortenLink.value ? <ErrorMessage /> : null}
+          {isClicked && !formData.ok ?
+            <ErrorMessage errorData={error} /> : null}
         </label>
         <button className='btn' onClick={handleClick} >Shorten It!</button>
       </form>
