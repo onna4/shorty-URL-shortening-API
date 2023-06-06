@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid'
 const ErrorMessage = (props) => {
 
   return (
-    <p className="fieldError">{props.errorData}</p>
+    <p className="fieldError">{props.error}</p>
   );
  };
 
@@ -52,11 +52,11 @@ function newURLResult () {
       fetch(`${APIURL}${shortenLink.value}`)
         .then(res => res.json())
         .then(data => {setFormData(data)
-          data.ok?
-        newURLResult() : loggingError()})
+          })
     }
     catch (error) {
         console.log(error)
+        loggingError(formData)
     }
   }, [isClicked])
 
@@ -124,7 +124,7 @@ function newURLResult () {
             }}
             onChange={handleChange} />
           {isClicked && !formData.ok ?
-            <ErrorMessage errorData={error} /> : null}
+            <ErrorMessage error={error} /> : null}
         </label>
         <button className='btn' onClick={handleClick} >Shorten It!</button>
       </form>
