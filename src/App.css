@@ -128,7 +128,6 @@ form {
   height: auto;
 }
 .formInput input {
-  /* position:relative; */
   height: 3rem;
   display:block;
   text-overflow: ellipsis;
@@ -144,9 +143,6 @@ form input:focus {
   border-color: var(--Red);
 }
 .fieldError {
-  /* position: absolute;
-  bottom: -70.5%;
-  left: 13.5%; */
   text-align: left;
   margin: -1.5em 3.5em -0.5em;
   color: var(--Red);
@@ -260,9 +256,6 @@ footer li {
 .btn:active {
   border: none;
 }
-/* --=================================
-=======================================
-====================================== */
 @media (min-width: 768px) {
   .flexHeader, .navDesk, .Navbuttons {
     display: flex;
