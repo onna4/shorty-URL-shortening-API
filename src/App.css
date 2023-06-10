@@ -125,29 +125,30 @@ p {
 form {
   margin: -4.5em 3em 3em;
   background:var(--Dark-Violet) url(./components/images/bg-shorten-mobile.svg) no-repeat right top;
-  height: 10rem;
+  height: auto;
 }
 .formInput input {
-  position:relative;
+  /* position:relative; */
   height: 3rem;
-  width: 85%;
   display:block;
   text-overflow: ellipsis;
-  margin: 1.5em auto;
   font-family: inherit;
   border-radius: 10px;
   text-indent: 20px;
 }
-form .btn {
+form .btn, .formInput input {
   width: 85%;
+  margin: 1.5em auto;
 }
 form input:focus {
   border-color: var(--Red);
 }
 .fieldError {
-  position: absolute;
-  bottom: -42%;
-  left: 14.5%;
+  /* position: absolute;
+  bottom: -70.5%;
+  left: 13.5%; */
+  text-align: left;
+  margin: -1.5em 3.5em -0.5em;
   color: var(--Red);
   font-size: 14px;
 }
@@ -334,7 +335,6 @@ footer li {
   .formResult, form {
     width: 77%;
     display: flex;
-    align-items: center;
     padding: 1em;
   }
   .formResult {
@@ -360,6 +360,9 @@ footer li {
   form .btn, .formInput input {
     font-size: 1.3rem;
     margin: 1.7em;
+  }
+  .fieldError {
+    margin-top: -2em;
   }
   .formInput input {
     width: 97%;

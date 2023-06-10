@@ -48,16 +48,17 @@ function newURLResult () {
     }
 
   useEffect(() => {
-    try {
       fetch(`${APIURL}${shortenLink.value}`)
         .then(res => res.json())
-        .then(data => {setFormData(data)
+        .then(data => {
+          setFormData(data)
+          if(!data.ok) {
+            throw Error(loggingError(formData))
+          }
           })
-    }
-    catch (error) {
-        console.log(error)
-        loggingError(formData)
-    }
+    .catch (error => {
+      console.error(error)
+    })
   }, [isClicked])
 
   function handleClick() {
@@ -115,7 +116,8 @@ function newURLResult () {
     <>
       <form onSubmit={handleSubmit} >
         <label className='formInput'>
-          <input type="text"
+          <input 
+            type="text"
             placeholder='Shorten a link here...'
             name="shortenLink"
             value={shortenLink.value}
