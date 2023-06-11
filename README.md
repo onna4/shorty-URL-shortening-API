@@ -32,8 +32,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [https://your-solution-url.com](https://www.frontendmentor.io/solutions/shorty-url-shortening-api-WM71rKpNLT)
-- Live Site URL: [https://your-live-site-url.com](https://shorty-url-shortening-api.vercel.app/)
+- Solution URL: [shorty url shortening Api](https://www.frontendmentor.io/solutions/shorty-url-shortening-api-WM71rKpNLT)
+- Live Site URL: [shorty url shortening Api](https://shorty-url-shortening-api.vercel.app/)
 
 ## My process
 
